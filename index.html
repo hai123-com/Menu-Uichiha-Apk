@@ -10,368 +10,115 @@
       --panel:#0f1724;
       --accent:#b30000;
       --muted:#98a0b3;
-      --glass: rgba(255,255,255,0.03);
       --green:#28a745;
-      --danger:#ff4d4f;
       --card:#0b1220;
       font-family: Inter, ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background: radial-gradient(ellipse at 10% 10%, rgba(179,0,0,0.12), transparent 6%), linear-gradient(180deg,#071019 0%, #051019 100%); color:#e6eef6}
+    html,body{height:100%;margin:0;background: linear-gradient(180deg,#071019 0%, #051019 100%); color:#e6eef6}
     .wrap{display:flex;gap:20px;max-width:1100px;margin:32px auto;padding:20px}
-    /* Left panel */
-    .panel{
-      width:360px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:14px;padding:18px;box-shadow: 0 6px 30px rgba(2,6,23,0.7); border:1px solid rgba(255,255,255,0.03)
-    }
+    .panel,.main{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 30px rgba(2,6,23,0.7)}
+    .panel{width:360px;padding:18px}
     .hdr{display:flex;align-items:center;gap:12px}
-    .logo{
-      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#1b1f26,#0d0f12);
-      display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.04)
-    }
-    .logo svg{width:40px;height:40px;filter: drop-shadow(0 4px 8px rgba(179,0,0,0.12))}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#1b1f26,#0d0f12);display:flex;align-items:center;justify-content:center}
+    .logo svg{width:40px;height:40px}
     .title{font-size:18px;font-weight:700}
     .subtitle{font-size:12px;color:var(--muted);margin-top:2px}
-    .status{margin-left:auto;text-align:right}
-    .status .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--green);margin-right:8px;vertical-align:middle;box-shadow:0 2px 8px rgba(40,167,69,0.18)}
-    /* Toggles list */
+    .status{margin-left:auto;text-align:right;font-size:12px;color:var(--muted)}
     .list{margin-top:16px;display:grid;gap:10px}
-    .item{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.02)}
-    .item .left{display:flex;gap:12px;align-items:center}
+    .item{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:rgba(255,255,255,0.03)}
     .item h4{margin:0;font-size:14px}
     .muted{font-size:12px;color:var(--muted)}
-    /* Toggle */
-    .switch{width:56px;height:30px;border-radius:30px;background:rgba(255,255,255,0.06);position:relative;padding:4px;cursor:pointer}
-    .knob{position:absolute;top:3px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:all .18s cubic-bezier(.2,.9,.3,1)}
+    .switch{width:56px;height:30px;border-radius:30px;background:rgba(255,255,255,0.06);position:relative;cursor:pointer}
+    .knob{position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
     .on{background:linear-gradient(90deg,var(--accent), #ff6b6b)}
-    .on .knob{left:30px;box-shadow:0 6px 18px rgba(179,0,0,0.18)}
-    /* Right area */
-    .main{
-      flex:1;padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border:1px solid rgba(255,255,255,0.03); box-shadow: 0 6px 30px rgba(2,6,23,0.7)
-    }
-    .main .banner{display:flex;align-items:center;gap:18px}
-    .badge{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px;border:1px solid rgba(255,255,255,0.03)}
-    .bigtitle{font-size:22px;font-weight:700}
-    .controls{display:flex;gap:12px;margin-top:14px}
-    .btn{padding:10px 14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);cursor:pointer}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),#ff6b6b);color:white;font-weight:700;border:none;box-shadow:0 8px 20px rgba(179,0,0,0.18)}
-    /* Console/log */
-    .console{margin-top:18px;background:linear-gradient(180deg,#07121a,#051018);padding:12px;border-radius:10px;min-height:160px;font-family:monospace;font-size:13px;color:#9fd0ff;border:1px solid rgba(255,255,255,0.02)}
-    .log{line-height:1.5}
-    .small{font-size:12px;color:var(--muted)}
-    .status-ok{color:var(--green);font-weight:700}
-    .status-bad{color:var(--danger);font-weight:700}
-    /* Footer */
-    .footer{margin-top:14px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
-    /* Responsive */
-    @media(max-width:880px){
-      .wrap{flex-direction:column;padding:12px}
-      .panel{width:100%}
-    }
-    input[type="text"]::-ms-clear { display: none; width: 0; height: 0; }
+    .on .knob{left:30px}
+    .main{flex:1;padding:18px}
+    .console{margin-top:18px;background:#051018;padding:12px;border-radius:10px;min-height:140px;font-family:monospace;font-size:13px;color:#9fd0ff}
+    .footer{margin-top:14px;display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+    .keygate{max-width:400px;margin:80px auto;padding:20px;background:var(--card);border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.06)}
+    .keygate input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;margin-bottom:10px}
+    .btn{padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);cursor:pointer;color:#fff}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#ff6b6b);border:none}
   </style>
 </head>
 <body>
-  <div class="wrap" role="application" aria-label="Uichiha APK mock menu">
-    <aside class="panel" aria-hidden="false">
+  <!-- Gate nhập key -->
+  <div id="gate" class="keygate">
+    <h2>Nhập Key để mở Menu</h2>
+    <input id="keyInput" type="text" placeholder="Nhập key...">
+    <button class="btn primary" id="checkKey">Xác minh</button>
+    <div style="margin-top:6px;font-size:12px;color:var(--muted)">
+      Key hợp lệ: Hai-Free, Hai-Vip, Hai-Admin
+    </div>
+    <div id="gateMsg" style="margin-top:8px;color:#ff6b6b;font-size:13px"></div>
+  </div>
+
+  <!-- Toàn bộ menu sẽ ẩn cho đến khi nhập key -->
+  <div class="wrap" id="app" style="display:none">
+    <aside class="panel">
       <div class="hdr">
-        <div class="logo" aria-hidden="true">
-          <!-- simple Sharingan-like glyph -->
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="32" r="28" fill="#0c0f14"/>
-            <path d="M32 8A24 24 0 1 0 56 32 24.03 24.03 0 0 0 32 8z" fill="#12060a" opacity="0.9"/>
-            <circle cx="32" cy="32" r="10" fill="#b30000"/>
-            <circle cx="32" cy="32" r="6" fill="#0b0f14"/>
-            <g fill="#fff" opacity="0.06">
-              <path d="M20 20L24 18L22 22z"/>
-            </g>
-          </svg>
+        <div class="logo">
+          <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#0c0f14"/><circle cx="32" cy="32" r="10" fill="#b30000"/><circle cx="32" cy="32" r="6" fill="#0b0f14"/></svg>
         </div>
         <div>
           <div class="title">Uichiha APK</div>
-          <div class="subtitle">Menu Premium — vui lòng mua key</div>
+          <div class="subtitle">Menu Premium</div>
         </div>
-        <div class="status">
-          <div><span class="dot" aria-hidden="true"></span><span class="small">STATUS: ONLINE</span></div>
-          <div class="small" id="session">Phiên: <strong>UI-2025-09</strong></div>
-        </div>
+        <div class="status"><span id="userRole">Chưa xác minh</span></div>
       </div>
 
-      <div class="list" aria-hidden="false">
-        <div class="item">
-          <div class="left">
-            <div>
-              <h4>AimBot</h4>
-              <div class="muted">Tự động ghim đầu</div>
-            </div>
-          </div>
-          <div class="switch" role="switch" tabindex="0" aria-checked="false" data-key="aimbot">
-            <div class="knob"></div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="left">
-            <div>
-              <h4>AimLock</h4>
-              <div class="muted">Khóa mục tiêu (mô phỏng)</div>
-            </div>
-          </div>
-          <div class="switch" role="switch" tabindex="0" aria-checked="false" data-key="aimlock">
-            <div class="knob"></div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="left">
-            <div>
-              <h4>WallHack</h4>
-              <div class="muted">Hiển thị như xuyên tường (chỉ UI)</div>
-            </div>
-          </div>
-          <div class="switch" role="switch" tabindex="0" aria-checked="false" data-key="wallhack">
-            <div class="knob"></div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="left">
-            <div>
-              <h4>Buff 120Hz</h4>
-              <div class="muted">Tăng tần số (giả lập)</div>
-            </div>
-          </div>
-          <div class="switch" role="switch" tabindex="0" aria-checked="false" data-key="buff120">
-            <div class="knob"></div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="left">
-            <div>
-              <h4>Fake Ping</h4>
-              <div class="muted">Hiển thị ping thấp </div>
-            </div>
-          </div>
-          <div class="switch" role="switch" tabindex="0" aria-checked="false" data-key="fakeping">
-            <div class="knob"></div>
-          </div>
-        </div>
+      <div class="list">
+        <div class="item"><h4>AimBot</h4><div class="switch" data-key="aimbot"><div class="knob"></div></div></div>
+        <div class="item"><h4>AimLock</h4><div class="switch" data-key="aimlock"><div class="knob"></div></div></div>
+        <div class="item"><h4>WallHack</h4><div class="switch" data-key="wallhack"><div class="knob"></div></div></div>
+        <div class="item"><h4>Buff 120Hz</h4><div class="switch" data-key="buff120"><div class="knob"></div></div></div>
       </div>
 
-      <div style="margin-top:12px;display:flex;gap:8px;">
-        <button class="btn" id="reset">Reset</button>
-        <button class="btn" id="randomize">Tùy ý</button>
-      </div>
-
-      <div class="footer">
-        <div class="small">Uichiha • Mock UI</div>
-        <div class="small">v1.0</div>
-      </div>
+      <div class="footer"><div>Uichiha • Mock UI</div><div>v1.0</div></div>
     </aside>
 
-    <main class="main" aria-live="polite">
-      <div class="banner">
-        <div>
-          <div class="badge">DEV MODE</div>
-          <div class="bigtitle">U I C H I H A</div>
-          <div class="small">Thành công</div>
-        </div>
-        <div style="margin-left:auto">
-          <div class="small">Người dùng</div>
-          <div style="font-weight:700">Developer</div>
-        </div>
-      </div>
-
-      <div class="controls">
-        <button class="btn" id="apply">Áp dụng</button>
-        <button class="btn primary" id="activate">KÍCH HOẠT</button>
-        <button class="btn" id="download">Tải (HTML)</button>
-      </div>
-
-      <!-- Key input block (added) -->
-      <div style="margin-top:16px;padding:12px;background:var(--card);border-radius:10px;border:1px solid rgba(255,255,255,0.02)">
-        <div style="font-weight:700;margin-bottom:8px">Nhập Key</div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <input id="keyInput" type="text" placeholder="Nhập key..." 
-                 style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.05);color:#e6eef6"/>
-          <button class="btn primary" id="checkKey">Xác minh</button>
-        </div>
-        <div class="small muted" style="margin-top:6px">
-          Key hợp lệ: <code>Hai-Free</code>, <code>Hai-Vip</code>, <code>Hai-Admin</code>
-        </div>
-      </div>
-
-      <div class="console" id="console" aria-label="Console giả">
-        <div class="log" id="log">
-          <!-- logs will appear here -->
-          <div class="small">[system] Menu sẵn sàng. Đây là bản demo -Free.</div>
-        </div>
-      </div>
-
-      <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
-        <div style="flex:1;min-width:220px;padding:12px;background:var(--card);border-radius:10px;border:1px solid rgba(255,255,255,0.02)">
-          <div style="font-weight:700">Thông tin</div>
-          <div class="muted" style="margin-top:6px">Tên app: <strong>Uichiha APK (Mock)</strong></div>
-          <div class="muted">Trạng thái: <strong id="info-status">Idle</strong></div>
-        </div>
-
-        <div style="flex:1;min-width:220px;padding:12px;background:var(--card);border-radius:10px;border:1px solid rgba(255,255,255,0.02)">
-          <div style="font-weight:700">Ghi chú</div>
-          <div class="muted" style="margin-top:6px">Mã này chỉ để hiển thị giao diện menu giả, KHÔNG thực hiện thao tác trên game hay thiết bị.</div>
-        </div> 
-      </div>
-
+    <main class="main">
+      <h3>Console</h3>
+      <div class="console" id="console"><div>[system] Sẵn sàng</div></div>
     </main>
   </div>
 
   <script>
-    // UI-only mock script. No network, no file system, no exploit code.
-    (function(){
-      const switches = document.querySelectorAll('.switch');
-      const logEl = document.getElementById('log');
-      const infoStatus = document.getElementById('info-status');
+    const validKeys = {
+      "Hai-Free": "Người dùng Free",
+      "Hai-Vip": "Người dùng VIP",
+      "Hai-Admin": "Quản trị viên"
+    };
+    const gate = document.getElementById('gate');
+    const app = document.getElementById('app');
+    const msg = document.getElementById('gateMsg');
+    const role = document.getElementById('userRole');
+    const logEl = document.getElementById('console');
 
-      function addLog(text, cls){
-        const d = document.createElement('div');
-        const time = new Date().toLocaleTimeString();
-        d.textContent = '[' + time + '] ' + text;
-        if(cls) d.classList.add(cls);
-        logEl.appendChild(d);
-        // keep last 30
-        while(logEl.children.length > 30) logEl.removeChild(logEl.firstChild);
-        document.getElementById('console').scrollTop = document.getElementById('console').scrollHeight;
+    function addLog(txt){
+      const d=document.createElement('div');d.textContent='['+new Date().toLocaleTimeString()+'] '+txt;
+      logEl.appendChild(d);logEl.scrollTop=logEl.scrollHeight;
+    }
+
+    document.getElementById('checkKey').addEventListener('click', ()=>{
+      const val=document.getElementById('keyInput').value.trim();
+      if(validKeys[val]){
+        gate.style.display='none'; app.style.display='flex';
+        role.textContent=validKeys[val];
+        addLog('Key hợp lệ: '+val+' → '+validKeys[val]);
+      } else {
+        msg.textContent='Key không hợp lệ!';
       }
+    });
 
-      function toggleSwitch(el, on){
-        if(on){
-          el.classList.add('on');
-          el.setAttribute('aria-checked','true');
-        } else {
-          el.classList.remove('on');
-          el.setAttribute('aria-checked','false');
-        }
-      }
-
-      switches.forEach(s=>{
-        s.addEventListener('click',()=>{
-          const isOn = s.classList.contains('on');
-          toggleSwitch(s, !isOn);
-          addLog((!isOn ? 'Bật' : 'Tắt') + ' ' + s.dataset.key + ' (GIAO DIỆN)');
-        });
-        s.addEventListener('keydown', (e)=>{
-          if(e.key === 'Enter' || e.key === ' '){
-            e.preventDefault();
-            s.click();
-          }
-        });
+    // Toggle nút
+    document.querySelectorAll('.switch').forEach(sw=>{
+      sw.addEventListener('click',()=>{
+        const on=sw.classList.toggle('on');
+        addLog((on?'Bật ':'Tắt ')+sw.dataset.key+' (UI)');
       });
-
-      document.getElementById('apply').addEventListener('click', ()=>{
-        addLog('Thiết lập đã được áp dụng (chỉ UI).');
-        infoStatus.textContent = 'Applied (UI)';
-      });
-
-      document.getElementById('activate').addEventListener('click', ()=>{
-        addLog('KÍCH HOẠT (mô phỏng): hệ thống bắt đầu thao tác trên giao diện...');
-        // fake sequence
-        infoStatus.textContent = 'Activating...';
-        let steps = [
-          'Kiểm tra trạng thái phiên...',
-          'Đồng bộ giao diện...',
-          'Khởi tạo module Sharingan...',
-          'Hoàn tất (mô phỏng).'
-        ];
-        let i=0;
-        const t = setInterval(()=>{
-          if(i<steps.length){
-            addLog(steps[i]);
-            i++;
-          } else {
-            clearInterval(t);
-            addLog('Kích hoạt hoàn tất — đây là demo giao diện, không ảnh hưởng game.');
-            infoStatus.textContent = 'Active (mock)';
-          }
-        },700);
-      });
-
-      document.getElementById('reset').addEventListener('click', ()=>{
-        switches.forEach(s=>toggleSwitch(s,false));
-        addLog('Reset toàn bộ tùy chọn về OFF.');
-        infoStatus.textContent = 'Idle';
-      });
-
-      document.getElementById('randomize').addEventListener('click', ()=>{
-        switches.forEach(s=>{
-          const r = Math.random() > 0.5;
-          toggleSwitch(s,r);
-        });
-        addLog('Ngẫu nhiên các tùy chọn.');
-      });
-
-      document.getElementById('download').addEventListener('click', ()=>{
-        addLog('Tải: lưu trang HTML (chỉ nội dung demo).');
-        // create downloadable blob of the current HTML as a convenience (no external resources)
-        const html = '<!doctype html>\\n' + document.documentElement.outerHTML;
-        const blob = new Blob([html], {type:'text/html'});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'uichiha-menu.html';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      });
-
-      // Key validation logic (UI-only)
-      const validKeys = {
-        "Hai-Free": {label: "Free", msg: "Truy cập bản Free"},
-        "Hai-Vip": {label: "VIP", msg: "Truy cập bản Vip"},
-        "Hai-Admin": {label: "ADMIN", msg: "Truy cập bản Admin"}
-      };
-
-      document.getElementById('checkKey').addEventListener('click', ()=>{
-        const val = document.getElementById('keyInput').value.trim();
-        if(!val){
-          addLog('Vui lòng nhập key.', 'status-bad');
-        } else if(validKeys[val]){
-          addLog('Key hợp lệ: ' + val + ' → ' + validKeys[val].msg, 'status-ok');
-          infoStatus.innerHTML = 'Authorized: <span class="status-ok">' + validKeys[val].label + '</span>';
-          // simulate unlocking UI features (purely cosmetic)
-          if(val === 'Hai-Admin'){
-            // toggle all on as a fun demo
-            switches.forEach(s=>toggleSwitch(s,true));
-            addLog('Tất cả module được kích hoạt (mô phỏng).', 'status-ok');
-          } else if(val === 'Hai-Vip'){
-            // turn on some
-            ['aimbot','aimlock','buff120'].forEach(k=>{
-              const s = document.querySelector(`.switch[data-key="${k}"]`);
-              if(s) toggleSwitch(s,true);
-            });
-            addLog('Các tính năng VIP đã sẵn sàng (mô phỏng).', 'status-ok');
-          } else {
-            // Free: leave defaults
-            addLog('Bản Free: một vài tính năng giới hạn (mô phỏng).', 'status-ok');
-          }
-        } else {
-          addLog('Key không hợp lệ: ' + val, 'status-bad');
-          infoStatus.innerHTML = 'Unauthorized';
-        }
-      });
-
-      // allow Enter in input to trigger check
-      document.getElementById('keyInput').addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter') {
-          e.preventDefault();
-          document.getElementById('checkKey').click();
-        }
-      });
-
-      // initial small hint
-      addLog('Chào! Đây là giao diện giả. Các toggle chỉ thao tác nội bộ và không thực hiện hack.');
-    })();
+    });
   </script>
 </body>
 </html>
