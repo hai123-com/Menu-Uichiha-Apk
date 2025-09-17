@@ -6,119 +6,143 @@
   <title>Uichiha APK — Hai Ios</title>
   <style>
     :root{
-      --bg:#0b0f17;
-      --panel:#0f1724;
-      --accent:#b30000;
-      --muted:#98a0b3;
-      --green:#28a745;
-      --card:#0b1220;
-      font-family: Inter, ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      --bg:#0b0f17; --panel:#0f1724; --accent:#b30000;
+      --muted:#98a0b3; --card:#0b1220; --green:#28a745;
+      font-family: Inter, ui-sans-serif, system-ui;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background: linear-gradient(180deg,#071019 0%, #051019 100%); color:#e6eef6}
-    .wrap{display:flex;gap:20px;max-width:1100px;margin:32px auto;padding:20px}
-    .panel,.main{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 30px rgba(2,6,23,0.7)}
-    .panel{width:360px;padding:18px}
-    .hdr{display:flex;align-items:center;gap:12px}
-    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#1b1f26,#0d0f12);display:flex;align-items:center;justify-content:center}
-    .logo svg{width:40px;height:40px}
-    .title{font-size:18px;font-weight:700}
-    .subtitle{font-size:12px;color:var(--muted);margin-top:2px}
-    .status{margin-left:auto;text-align:right;font-size:12px;color:var(--muted)}
-    .list{margin-top:16px;display:grid;gap:10px}
-    .item{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:rgba(255,255,255,0.03)}
-    .item h4{margin:0;font-size:14px}
-    .muted{font-size:12px;color:var(--muted)}
-    .switch{width:56px;height:30px;border-radius:30px;background:rgba(255,255,255,0.06);position:relative;cursor:pointer}
+    body{margin:0;background:linear-gradient(180deg,#071019,#051019);color:#e6eef6}
+    .wrap{max-width:1100px;margin:20px auto;padding:12px}
+    .tabs{display:flex;gap:8px;margin-bottom:12px}
+    .tab{padding:10px 14px;border-radius:8px;background:rgba(255,255,255,0.05);cursor:pointer}
+    .tab.active{background:linear-gradient(90deg,var(--accent),#ff6b6b);font-weight:700}
+    .panel{display:none;padding:16px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05)}
+    .panel.active{display:block}
+    .switch{width:56px;height:30px;border-radius:30px;background:rgba(255,255,255,0.06);position:relative;cursor:pointer;display:inline-block;margin-left:12px}
+    .switch.disabled{opacity:0.4;cursor:not-allowed}
     .knob{position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s}
     .on{background:linear-gradient(90deg,var(--accent), #ff6b6b)}
     .on .knob{left:30px}
-    .main{flex:1;padding:18px}
-    .console{margin-top:18px;background:#051018;padding:12px;border-radius:10px;min-height:140px;font-family:monospace;font-size:13px;color:#9fd0ff}
-    .footer{margin-top:14px;display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
-    .keygate{max-width:400px;margin:80px auto;padding:20px;background:var(--card);border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.06)}
-    .keygate input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;margin-bottom:10px}
-    .btn{padding:10px 14px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);cursor:pointer;color:#fff}
+    .console{background:#051018;padding:10px;border-radius:8px;font-family:monospace;font-size:13px;min-height:150px;max-height:300px;overflow-y:auto}
+    .inputbox{max-width:400px;margin:20px auto}
+    .inputbox input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;margin-bottom:10px}
+    .btn{padding:10px 14px;border-radius:8px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);cursor:pointer;color:#fff}
     .btn.primary{background:linear-gradient(90deg,var(--accent),#ff6b6b);border:none}
   </style>
 </head>
 <body>
-  <!-- Gate nhập key -->
-  <div id="gate" class="keygate">
-    <h2>Nhập Key để mở Menu</h2>
-    <input id="keyInput" type="text" placeholder="Nhập key...">
-    <button class="btn primary" id="checkKey">Xác minh</button>
-    <div style="margin-top:6px;font-size:12px;color:var(--muted)">
-      Key hợp lệ: Hai-Free, Hai-Vip, Hai-Admin
+<div class="wrap">
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-tab="menu">Menu</div>
+    <div class="tab" data-tab="console">Console</div>
+    <div class="tab" data-tab="key">Nhập Key</div>
+    <div class="tab" data-tab="admin" style="display:none">Admin Control</div>
+  </div>
+
+  <!-- Panel: Menu -->
+  <div class="panel active" id="menu">
+    <h3>Uichiha APK — Menu</h3>
+    <p>Chọn tính năng:</p>
+    <div><span>AimBot</span><div class="switch disabled" data-key="aimbot"><div class="knob"></div></div></div>
+    <div><span>AimLock</span><div class="switch disabled" data-key="aimlock"><div class="knob"></div></div></div>
+    <div><span>WallHack</span><div class="switch disabled" data-key="wallhack"><div class="knob"></div></div></div>
+    <div><span>Buff 120Hz</span><div class="switch disabled" data-key="buff120"><div class="knob"></div></div></div>
+  </div>
+
+  <!-- Panel: Console -->
+  <div class="panel" id="console">
+    <h3>Console</h3>
+    <div class="console" id="consoleLog"><div>[system] Sẵn sàng</div></div>
+  </div>
+
+  <!-- Panel: Nhập Key -->
+  <div class="panel" id="key">
+    <h3>Nhập Key để mở khóa</h3>
+    <div class="inputbox">
+      <input type="password" id="keyInput" placeholder="Nhập key...">
+      <button class="btn primary" id="checkKey">Xác minh</button>
+      <div id="keyMsg" style="margin-top:8px;color:#ff6b6b;font-size:13px"></div>
     </div>
-    <div id="gateMsg" style="margin-top:8px;color:#ff6b6b;font-size:13px"></div>
   </div>
 
-  <!-- Toàn bộ menu sẽ ẩn cho đến khi nhập key -->
-  <div class="wrap" id="app" style="display:none">
-    <aside class="panel">
-      <div class="hdr">
-        <div class="logo">
-          <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="#0c0f14"/><circle cx="32" cy="32" r="10" fill="#b30000"/><circle cx="32" cy="32" r="6" fill="#0b0f14"/></svg>
-        </div>
-        <div>
-          <div class="title">Uichiha APK</div>
-          <div class="subtitle">Menu Premium</div>
-        </div>
-        <div class="status"><span id="userRole">Chưa xác minh</span></div>
-      </div>
-
-      <div class="list">
-        <div class="item"><h4>AimBot</h4><div class="switch" data-key="aimbot"><div class="knob"></div></div></div>
-        <div class="item"><h4>AimLock</h4><div class="switch" data-key="aimlock"><div class="knob"></div></div></div>
-        <div class="item"><h4>WallHack</h4><div class="switch" data-key="wallhack"><div class="knob"></div></div></div>
-        <div class="item"><h4>Buff 120Hz</h4><div class="switch" data-key="buff120"><div class="knob"></div></div></div>
-      </div>
-
-      <div class="footer"><div>Uichiha • Mock UI</div><div>v1.0</div></div>
-    </aside>
-
-    <main class="main">
-      <h3>Console</h3>
-      <div class="console" id="console"><div>[system] Sẵn sàng</div></div>
-    </main>
+  <!-- Panel: Admin Control -->
+  <div class="panel" id="admin">
+    <h3>Admin Control</h3>
+    <p>Chỉ hiển thị khi nhập key <b>Hai-Admin</b></p>
+    <div><span>Force Unlock</span><div class="switch" data-key="force"><div class="knob"></div></div></div>
+    <div><span>Debug Mode</span><div class="switch" data-key="debug"><div class="knob"></div></div></div>
   </div>
+</div>
 
-  <script>
-    const validKeys = {
-      "Hai-Free": "Người dùng Free",
-      "Hai-Vip": "Người dùng VIP",
-      "Hai-Admin": "Quản trị viên"
-    };
-    const gate = document.getElementById('gate');
-    const app = document.getElementById('app');
-    const msg = document.getElementById('gateMsg');
-    const role = document.getElementById('userRole');
-    const logEl = document.getElementById('console');
+<script>
+  const validKeys = {
+    "Hai-Free": "Free",
+    "Hai-Vip": "VIP",
+    "Hai-Admin": "Admin"
+  };
+  const logEl = document.getElementById('consoleLog');
+  const keyMsg = document.getElementById('keyMsg');
+  const adminTab = document.querySelector('.tab[data-tab="admin"]');
+  const adminPanel = document.getElementById('admin');
 
-    function addLog(txt){
-      const d=document.createElement('div');d.textContent='['+new Date().toLocaleTimeString()+'] '+txt;
-      logEl.appendChild(d);logEl.scrollTop=logEl.scrollHeight;
+  function addLog(msg){
+    const d=document.createElement('div');
+    d.textContent='['+new Date().toLocaleTimeString()+'] '+msg;
+    logEl.appendChild(d);
+    logEl.scrollTop=logEl.scrollHeight;
+  }
+
+  // Tab switching
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Xác minh key
+  document.getElementById('checkKey').addEventListener('click',()=>{
+    const val=document.getElementById('keyInput').value.trim();
+    if(validKeys[val]){
+      keyMsg.style.color="#28a745";
+      keyMsg.textContent="Đăng nhập thành công ("+validKeys[val]+")";
+      addLog("Key hợp lệ: "+val);
+      unlockMenu(val);
+    } else {
+      keyMsg.style.color="#ff4d4f";
+      keyMsg.textContent="Key không hợp lệ!";
+      addLog("Nhập sai key!");
     }
+  });
 
-    document.getElementById('checkKey').addEventListener('click', ()=>{
-      const val=document.getElementById('keyInput').value.trim();
-      if(validKeys[val]){
-        gate.style.display='none'; app.style.display='flex';
-        role.textContent=validKeys[val];
-        addLog('Key hợp lệ: '+val+' → '+validKeys[val]);
-      } else {
-        msg.textContent='Key không hợp lệ!';
+  // Unlock menu tùy theo key
+  function unlockMenu(key){
+    document.querySelectorAll('#menu .switch').forEach(sw=>{
+      sw.classList.remove('disabled');
+      if(key==="Hai-Free"){
+        if(sw.dataset.key!=="aimbot" && sw.dataset.key!=="buff120"){
+          sw.classList.add('disabled');
+        }
       }
     });
+    if(key==="Hai-Admin"){ adminTab.style.display="block"; }
+  }
 
-    // Toggle nút
-    document.querySelectorAll('.switch').forEach(sw=>{
-      sw.addEventListener('click',()=>{
-        const on=sw.classList.toggle('on');
-        addLog((on?'Bật ':'Tắt ')+sw.dataset.key+' (UI)');
-      });
-    });
-  </script>
+  // Toggle switch
+  document.addEventListener('click',e=>{
+    if(e.target.closest('.switch')){
+      const sw=e.target.closest('.switch');
+      if(sw.classList.contains('disabled')){
+        addLog('"' + sw.dataset.key + '" bị khóa');
+        return;
+      }
+      const on=sw.classList.toggle('on');
+      addLog((on?'Bật ':'Tắt ')+sw.dataset.key);
+    }
+  });
+</script>
 </body>
 </html>
